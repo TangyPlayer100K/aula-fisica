@@ -1,0 +1,4 @@
+repository "aula fisica@TangyPlayer100K@cloud"
+  path "/"
+    br "/main"
+    co "/main"
