@@ -4,16 +4,22 @@ using UnityEngine;
 public class AnimationToRagdoll : MonoBehaviour
 {
     [SerializeField] Collider myCollider;
-    [SerializeField] float respawnTime = 30f;
+    [SerializeField] float respawnTime = 5f;
+
     Rigidbody[] rigidbodies;
+    Animator animator;
+
     bool bIsRagdoll = false;
 
     void Start()
     {
         Debug.Log($"Colisão detectada com:");
 
+        animator = GetComponent<Animator>();
+
         rigidbodies = GetComponentsInChildren<Rigidbody>();
         ToggleRagdoll(true);
+        animator.SetTrigger("Walk");
     }
 
     private void OnCollisionEnter(Collision collision)
@@ -33,6 +39,14 @@ public class AnimationToRagdoll : MonoBehaviour
     {
         yield return new WaitForSeconds(respawnTime);
         ToggleRagdoll(true);
+
+        animator.SetTrigger("GetUp"); // levanta
+        yield return new WaitForSeconds(2f); // tempo da animação de levantar
+
+        animator.SetTrigger("React"); // bate a poeira
+        yield return new WaitForSeconds(1f); // tempo da reação
+
+        animator.SetTrigger("Run"); // começa a correr
     }
 
     private void ToggleRagdoll(bool bisAnimating)
@@ -50,27 +64,31 @@ public class AnimationToRagdoll : MonoBehaviour
             ragdollBone.isKinematic = bisAnimating;
         }
 
-        GetComponent<Animator>().enabled = bisAnimating;
-        if (bisAnimating)
-        {
-            RandomAnimation();
-        }
+        animator.enabled = bisAnimating;
+        //GetComponent<Animator>().enabled = bisAnimating;
+        //if (bisAnimating)
+        //{
+        //    RandomAnimation();
+        //}
     }
 
-    void RandomAnimation()
-    {
-        int randomNum = UnityEngine.Random.Range(0, 2);
-        Debug.Log(randomNum);
-        Animator animator = GetComponent<Animator>();
+    //void RandomAnimation()
+    //{
 
-        if (randomNum == 0)
-        {
-            animator.SetTrigger("Walk");
-        }
-        else
-        {
-            animator.SetTrigger("Idle");
-        }
 
-    }
+
+    //    int randomNum = UnityEngine.Random.Range(0, 2);
+    //    Debug.Log(randomNum);
+    //    Animator animator = GetComponent<Animator>();
+
+    //    if (randomNum == 0)
+    //    {
+    //        animator.SetTrigger("Walk");
+    //    }
+    //    else
+    //    {
+    //        animator.SetTrigger("Idle");
+    //    }
+
+    //}
 }
