@@ -14,15 +14,12 @@ public class Sticky : MonoBehaviour
     {
         if (isStuck) return;
 
-        // Verifica se o objeto colidido tem a tag "Limb"
         if (collision.collider.CompareTag("Limb"))
         {
-            // Para a física
             rb.linearVelocity = Vector3.zero;
             rb.angularVelocity = Vector3.zero;
             rb.isKinematic = true;
 
-            // Gruda no objeto com a tag "Limb"
             transform.SetParent(collision.transform);
 
             isStuck = true;
