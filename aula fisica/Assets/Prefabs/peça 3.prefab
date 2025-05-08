@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 2273614961667025567}
   - component: {fileID: 7948701294795528833}
   - component: {fileID: 2824649656221131351}
+  - component: {fileID: -3850835213201787476}
   m_Layer: 0
   m_Name: "pe\xE7a 3"
   m_TagString: Untagged
@@ -67,7 +68,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 1f6a8bbdc9abcff4981b369997e41f82, type: 2}
+  - {fileID: 2100000, guid: e5a76598bfdbe4549afb2881c8e54c7f, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -147,5 +148,22 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f11afea0eb4d53f41838d061e166c37c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxDragDistance: 2
+  pushForce: 5
+  doubleClickForceMultiplier: 2
+  doubleClickThreshold: 0.3
+  keyboardMoveSpeed: 0.1
+--- !u!114 &-3850835213201787476
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2112985820271799293}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0f4050457a952094393e867ab195b42f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 

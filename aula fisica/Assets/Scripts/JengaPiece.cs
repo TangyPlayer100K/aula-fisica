@@ -13,6 +13,9 @@ public class JengaPiece : MonoBehaviour
     public float doubleClickForceMultiplier = 2f; // multiplicador de força para duplo clique
     public float doubleClickThreshold = 0.3f; // tempo maximo entre cliques para ser considerado duplo clique
 
+    [Header("Keyboard Movement")]
+    public float keyboardMoveSpeed = 0.1f; // Velocidade de movimento ao pressionar Q e E
+
     private Rigidbody rb;
     private Camera mainCamera;
     private bool isDragging = false;
@@ -28,25 +31,24 @@ public class JengaPiece : MonoBehaviour
 
     private void OnMouseDown()
     {
-        // detecta clique duplo
+        // Detecta clique duplo
         float timeSinceLastClick = Time.time - lastClickTime;
         lastClickTime = Time.time;
 
-        // se for duplo clique, aplica força maior e não inicia arrasto
         if (timeSinceLastClick <= doubleClickThreshold)
         {
             ApplyPush(pushForce * doubleClickForceMultiplier);
-            return;
+            return; // Não inicia o arrasto se for duplo clique
         }
 
-        // se for clique simples, apliuca força normal
+        // Clique simples aplica a força
         ApplyPush(pushForce);
 
-        // inicia arrasto
+        // Inicia arrasto
         isDragging = true;
         rb.isKinematic = true;
 
-        // caucula offset entre o mouse e a posição atual da peça
+        // Calcula o offset do mouse em relação à posição da peça
         Vector3 mousepos = GetMouseWorldPosition();
         offset = transform.position - mousepos;
         startDragPosition = transform.position;
@@ -56,29 +58,28 @@ public class JengaPiece : MonoBehaviour
     {
         if (!isDragging) return;
 
-        // obtem posiução do mouse no mundo
+        // Obtém a posição do mouse no mundo
         Vector3 mousepos = GetMouseWorldPosition();
-        Vector3 targetPos = mousepos + offset;
 
-        // lista a distancia de arrasto
-        Vector3 dragVector = targetPos - startDragPosition;
-        if (dragVector.magnitude > maxDragDistance)
-        {
-            dragVector = dragVector.normalized * maxDragDistance;
-        }
+        // Calcula a nova posição somente no eixo X e Z, mantendo o Y constante
+        Vector3 targetPosition = new Vector3(
+            mousepos.x + offset.x, // Modifica a posição no eixo X com base no arrasto
+            transform.position.y,  // Mantém a posição no eixo Y constante
+            mousepos.z + offset.z  // Modifica a posição no eixo Z com base no arrasto
+        );
 
-        transform.position = startDragPosition + dragVector;
+        transform.position = targetPosition;
     }
 
     private void OnMouseUp()
     {
-        //  libera arrasto e ativa fisica novamnete
+        // Libera o arrasto e reativa a física
         isDragging = false;
         rb.isKinematic = false;
     }
 
     /// <summary>
-    /// aplica turva na slaporra da camera como um "empurrão"
+    /// aplica turva na sla porra da camera como um "empurrão"
     /// </summary>
     private void ApplyPush(float force)
     {
@@ -100,5 +101,33 @@ public class JengaPiece : MonoBehaviour
         }
         return transform.position;
     }
+
+    private void Update()
+    {
+        // Verifica se a peça está sendo arrastada antes de permitir o movimento vertical com Q ou E
+        if (isDragging)
+        {
+            // Movimento vertical com as teclas Q e E
+            if (Input.GetKey(KeyCode.E)) // Subir
+            {
+                MoveVertically(keyboardMoveSpeed);
+            }
+            if (Input.GetKey(KeyCode.Q)) // Descer
+            {
+                MoveVertically(-keyboardMoveSpeed);
+            }
+        }
+    }
+
+    /// <summary>
+    /// Move a peça verticalmente com a velocidade especificada, **apenas no eixo Y**.
+    /// </summary>
+    private void MoveVertically(float moveAmount)
+    {
+        // A peça só se move no eixo Y, mantendo os outros eixos (X e Z) constantes
+        transform.position = new Vector3(transform.position.x, transform.position.y + moveAmount, transform.position.z);
+    }
+
+
 
 }
