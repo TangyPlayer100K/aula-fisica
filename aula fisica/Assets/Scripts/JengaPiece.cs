@@ -13,6 +13,8 @@ public class JengaPiece : MonoBehaviour
     public float doubleClickForceMultiplier = 2f; // multiplicador de força para duplo clique
     public float doubleClickThreshold = 0.3f; // tempo maximo entre cliques para ser considerado duplo clique
 
+    
+
     [Header("Keyboard Movement")]
     public float keyboardMoveSpeed = 0.1f; // Velocidade de movimento ao pressionar Q e E
 

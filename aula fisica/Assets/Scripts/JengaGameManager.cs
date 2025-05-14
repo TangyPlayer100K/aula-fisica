@@ -2,44 +2,39 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using TMPro; // Importa o namespace do TextMesh Pro
+using TMPro;
 
 public class JengaGameManager : MonoBehaviour
 {
     [Header("Game Settings")]
-    public int totalPlayers = 2; // Número total de jogadores
-    public List<int> playerScores = new List<int>(); // Lista de pontuação dos jogadores
-    public int currentPlayer = 0; // Jogador atual
-    public int fallenPiecesCount = 0; // Número de peças caídas
-    public int piecesToLose = 2; // Número de peças que faz o jogador perder
-    public TMP_Text currentPlayerText; // Exibição do jogador atual (TextMesh Pro)
-    public TMP_Text playerScoreText; // Exibição da pontuação do jogador atual (TextMesh Pro)
-    public TMP_Text fallenPiecesText; // Exibição do número de peças caídas (TextMesh Pro)
-    public Button endTurnButton; // Botão para passar o turno
+    public int totalPlayers = 2; 
+    public List<float> playerScores = new List<float>(); 
+    public int currentPlayer = 0; 
+    public int fallenPiecesCount = 0; 
+    public int piecesToLose = 2; 
 
-    [Header("Piece Settings")]
-    public List<int> pieceScores; // Pontuação de cada tipo de peça (ordem de 0 a 3 para os tipos de peça)
+    public TMP_Text currentPlayerText; 
+    public TMP_Text playerScoreText; 
+    public TMP_Text fallenPiecesText; 
+    public Button endTurnButton; 
 
     public TMP_Text gameoverText;
     public GameObject gameoverGameObject;
+    public bool gameIsOver;
 
-    // Inicializa o jogo
     private void Start()
     {
-        // Inicia a pontuação dos jogadores
+        gameIsOver = false;
         for (int i = 0; i < totalPlayers; i++)
         {
-            playerScores.Add(0); // Pontuação inicial para cada jogador
+            playerScores.Add(0);
         }
 
-        // Atualiza a UI
         UpdateUI();
 
-        // Adiciona a função de passar o turno ao botão
         endTurnButton.onClick.AddListener(PassTurn);
     }
 
-    // Atualiza a UI com informações sobre o jogador atual e suas pontuações
     void UpdateUI()
     {
         currentPlayerText.text = "Jogador " + (currentPlayer + 1);
@@ -47,60 +42,61 @@ public class JengaGameManager : MonoBehaviour
         fallenPiecesText.text = "Peças Caídas: " + fallenPiecesCount;
     }
 
-    // Passa o turno para o próximo jogador
     void PassTurn()
     {
-        // Verifica se o jogador perdeu (se mais de uma peça caiu)
         if (fallenPiecesCount >= piecesToLose)
         {
             LoseGame();
             return;
         }
 
-        // Incrementa o turno
-        currentPlayer = (currentPlayer + 1) % totalPlayers; // Alterna entre jogadores (ex: de 0 vai para 1, de 1 vai para 0)
+        currentPlayer = (currentPlayer + 1) % totalPlayers;
 
-        // Atualiza a UI
+        fallenPiecesCount = 0;
+
         UpdateUI();
     }
 
-    // Quando uma peça cair, verificamos quantas caíram
     public void PieceFallen()
     {
         fallenPiecesCount++;
 
-        // Verifica se o jogador perdeu
         if (fallenPiecesCount >= piecesToLose)
         {
             LoseGame();
         }
         else
         {
-            // Atualiza a UI
             UpdateUI();
         }
     }
 
-    // Quando uma peça é colocada na torre, dá pontos ao jogador
-    public void PiecePlaced(int pieceType)
+    public void AddScore(float score)
     {
-        // Garante que o tipo de peça seja válido
-        if (pieceType >= 0 && pieceType < pieceScores.Count)
-        {
-            // Adiciona os pontos baseados no tipo de peça
-            playerScores[currentPlayer] += pieceScores[pieceType];
+        playerScores[currentPlayer] += score + 10f;
+        fallenPiecesCount = 0;
+        UpdateUI();
+        CheckWin();
+    }
 
-            // Atualiza a UI
-            UpdateUI();
+    void CheckWin()
+    {
+        if (playerScores[currentPlayer] >= 200f)
+        {
+            Debug.Log("Jogador " + (currentPlayer + 1) + " venceu o jogo!");
+            gameoverText.text = (currentPlayer + 1) + " venceu o jogo!";
+            gameoverGameObject.SetActive(true);
+            gameIsOver = true;
         }
     }
 
-    // Função que é chamada quando o jogador perde
     void LoseGame()
     {
-        // Exibe mensagem de perda ou qualquer outra lógica de fim de jogo
-        Debug.Log("Jogador " + (currentPlayer + 1) + " perdeu o jogo!");
-        gameoverText.text = (currentPlayer + 1) + " perdeu o jogo!";
-        gameoverGameObject.SetActive(true);
+        if(gameIsOver == false)
+        {
+            Debug.Log("Jogador " + (currentPlayer + 1) + " perdeu o jogo!");
+            gameoverText.text = (currentPlayer + 1) + " perdeu o jogo!";
+            gameoverGameObject.SetActive(true);
+        }
     }
 }

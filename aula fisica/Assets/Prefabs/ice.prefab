@@ -14,10 +14,10 @@ GameObject:
   - component: {fileID: 2273614961667025567}
   - component: {fileID: 7948701294795528833}
   - component: {fileID: 2824649656221131351}
-  - component: {fileID: -7185266157876801868}
+  - component: {fileID: -481146478794247534}
   m_Layer: 0
-  m_Name: "pe\xE7a"
-  m_TagString: Untagged
+  m_Name: ice
+  m_TagString: ice
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -68,7 +68,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 1f6a8bbdc9abcff4981b369997e41f82, type: 2}
+  - {fileID: 2100000, guid: c5b99d80fbc8dff4db434cb589dbeaf6, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -97,7 +97,7 @@ BoxCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2112985820271799293}
-  m_Material: {fileID: 13400000, guid: 2115f96cf7d37f845a124af0615c5ba0, type: 2}
+  m_Material: {fileID: 13400000, guid: 0ef7f999118173d46bb4283ea63be0d4, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -155,7 +155,7 @@ MonoBehaviour:
   doubleClickForceMultiplier: 2
   doubleClickThreshold: 0.3
   keyboardMoveSpeed: 0.1
---- !u!114 &-7185266157876801868
+--- !u!114 &-481146478794247534
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

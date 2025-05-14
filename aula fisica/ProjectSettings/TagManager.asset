@@ -6,6 +6,11 @@ TagManager:
   tags:
   - Projectile
   - Limb
+  - chao
+  - wood
+  - metal
+  - ice
+  - rubber
   layers:
   - Default
   - TransparentFX

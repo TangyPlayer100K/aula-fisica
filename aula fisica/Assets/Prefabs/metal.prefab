@@ -14,10 +14,10 @@ GameObject:
   - component: {fileID: 2273614961667025567}
   - component: {fileID: 7948701294795528833}
   - component: {fileID: 2824649656221131351}
-  - component: {fileID: -3850835213201787476}
+  - component: {fileID: -994514499683934924}
   m_Layer: 0
-  m_Name: "pe\xE7a 3"
-  m_TagString: Untagged
+  m_Name: metal
+  m_TagString: metal
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -68,7 +68,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: e5a76598bfdbe4549afb2881c8e54c7f, type: 2}
+  - {fileID: 2100000, guid: 8866892671abac84e8bd96893e380e7a, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -97,7 +97,7 @@ BoxCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2112985820271799293}
-  m_Material: {fileID: 13400000, guid: c461229b38863554ebc7630f9eff3c12, type: 2}
+  m_Material: {fileID: 13400000, guid: f4c542d92d4a0d3408222c453cdb088f, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -155,7 +155,7 @@ MonoBehaviour:
   doubleClickForceMultiplier: 2
   doubleClickThreshold: 0.3
   keyboardMoveSpeed: 0.1
---- !u!114 &-3850835213201787476
+--- !u!114 &-994514499683934924
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

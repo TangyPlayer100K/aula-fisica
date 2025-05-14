@@ -8,7 +8,7 @@ public class JengaPieceFallDetector : MonoBehaviour
     private void OnCollisionEnter(Collision collision)
     {
         // Verifica se a colisão foi significativa o suficiente para considerarmos a peça como caída
-        if (collision.relativeVelocity.magnitude > 1f) // Velocidade relativa suficiente para a peça cair
+        if (collision.gameObject.CompareTag("chao")) // Velocidade relativa suficiente para a peça cair
         {
             // Tenta encontrar o JengaGameManager na cena
             if (gameManager == null)
@@ -22,8 +22,8 @@ public class JengaPieceFallDetector : MonoBehaviour
                 gameManager.PieceFallen();
             }
 
-            // Destrói a peça após cair, para garantir que não interaja mais
-            Destroy(gameObject);
+            //// Destrói a peça após cair, para garantir que não interaja mais
+            //Destroy(gameObject);
         }
     }
 }
